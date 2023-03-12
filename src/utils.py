@@ -4,9 +4,7 @@ from bs4 import BeautifulSoup
 from requests import RequestException
 
 from exceptions import ParserFindTagException
-
-GET_RESPONSE_LOG_ERROR = 'Возникла ошибка при загрузке страницы {url}'
-TAG_NOT_FOUND_LOG_ERROR = 'Не найден тег {tag} {attrs}'
+from src.constants import GET_RESPONSE_LOG_ERROR, TAG_NOT_FOUND_LOG_ERROR
 
 
 def get_response(session, url):

@@ -8,24 +8,11 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 from configs import configure_argument_parser, configure_logging
-from constants import BASE_DIR, MAIN_DOC_URL, PEP_URL
 from outputs import control_output
+from src.constants import (ARGS_LOG_INFO, BASE_DIR, DOWNLOAD_LOG_INFO,
+                           EXPECTED_STATUS, FINISH_LOG_INFO, MAIN_DOC_URL,
+                           PEP_URL, START_LOG_INFO)
 from utils import find_tag, get_response, get_soup
-
-ARGS_LOG_INFO = 'Аргументы командной строки: {args}'
-DOWNLOAD_LOG_INFO = 'Архив был загружен и сохранён: {archive_path}'
-START_LOG_INFO = 'Парсер запущен!'
-FINISH_LOG_INFO = 'Работа парсера завершена'
-EXPECTED_STATUS = {
-    'A': ('Active', 'Accepted'),
-    'D': ('Deferred',),
-    'F': ('Final',),
-    'P': ('Provisional',),
-    'R': ('Rejected',),
-    'S': ('Superseded',),
-    'W': ('Withdrawn',),
-    '': ('Draft', 'Active'),
-}
 
 
 def whats_new(session):
