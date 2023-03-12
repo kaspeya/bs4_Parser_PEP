@@ -16,13 +16,3 @@ EXPECTED_STATUS = {
     'W': ('Withdrawn',),
     '': ('Draft', 'Active'),
 }
-
-
-DOWNLOAD_LOG_INFO = 'Архив был загружен и сохранён: {archive_path}'
-START_LOG_INFO = 'Парсер запущен!'
-FINISH_LOG_INFO = 'Работа парсера завершена'
-
-ARGS_LOG_INFO = 'Аргументы командной строки: {args}'
-FILE_OUTPUT_LOG_INFO = 'Файл с результатами был сохранён: {file_path}'
-GET_RESPONSE_LOG_ERROR = 'Возникла ошибка при загрузке страницы {url}'
-TAG_NOT_FOUND_LOG_ERROR = 'Не найден тег {tag} {attrs}'
