@@ -20,9 +20,6 @@ EXPECTED_STATUS = {
 """ Описание формата логов: Время записи – Уровень сообщения – Cообщение."""
 LOG_FORMAT = '"%(asctime)s - [%(levelname)s] - %(message)s"'
 
-""" Формат времени."""
-DT_FORMAT = '%d.%m.%Y %H:%M:%S'
-
 DOWNLOAD_LOG_INFO = 'Архив был загружен и сохранён: {archive_path}'
 START_LOG_INFO = 'Парсер запущен!'
 FINISH_LOG_INFO = 'Работа парсера завершена'
