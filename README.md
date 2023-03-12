@@ -10,10 +10,11 @@
 также реализованы сбор информации о статусе версий, скачивание архива с документацией и сбор ссылок о новостях в Python,
 > логирует свою работу и ошибки в командную строку и файл логов.
 ## Технологии проекта
-- Python — высокоуровневый язык программирования.
-- BeautifulSoup4 - библиотека для парсинга.
-- Prettytable - библиотека для удобного отображения табличных данных.
-- Logging - Логирование работы и отслеживания ошибок
+- [BeautifulSoup](https://pypi.org/project/beautifulsoup4/) 4.9.3
+- [lxml](https://pypi.org/project/lxml/) 4.6.3
+- [PrettyTable](https://pypi.org/project/prettytable/) 2.1.0
+- [requests-cache](https://pypi.org/project/requests-cache/) 1.0.0
+- [tqdm](https://pypi.org/project/tqdm/) 4.61.0
 
 ## Примеры команд
 ### _Доступные аргументы командной строки_
@@ -52,3 +53,4 @@ python main.py latest-versions -o pretty
 ```
 python main.py whats-new
 ```
+Автор: [Елизавета Шалаева](https://github.com/kaspeya)
