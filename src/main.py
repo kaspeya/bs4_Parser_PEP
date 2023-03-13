@@ -137,19 +137,19 @@ def pep(session):
                               attrs={'class': 'rfc2822 field-list simple'})
         status_pep_page = table_info.find(
             string='Status').parent.find_next_sibling('dd').string
-        if status_pep_page in status_dict:
-            status_dict[status_pep_page] += 1
-        if status_pep_page not in status_dict:
-            status_dict[status_pep_page] = 1
+        # if status_pep_page in status_dict:
+        #     status_dict[status_pep_page] += 1
+        # if status_pep_page not in status_dict:
+        #     status_dict[status_pep_page] = 1
+        status_dict[status_pep_page] = status_dict.get(status_pep_page, 0) + 1
         if status_pep_page not in EXPECTED_STATUS[preview_status]:
-            error_message = (f'Несовпадающие статусы:\n'
+            error_message = ('Несовпадающие статусы:\n'
                              f'{url}\n'
                              f'Статус в карточке: {status_pep_page}\n'
-                             f'Ожидаемые статусы: '
+                             'Ожидаемые статусы: '
                              f'{EXPECTED_STATUS[preview_status]}')
             logging.warning(error_message)
-    for status in status_dict:
-        results.append((status, status_dict[status]))
+    results.extend([(status, status_dict[status]) for status in status_dict])
     results.append(('Total', pep_count))
     return results
 
