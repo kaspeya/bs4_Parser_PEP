@@ -9,9 +9,9 @@ from tqdm import tqdm
 
 from configs import configure_argument_parser, configure_logging
 from outputs import control_output
-from src.constants import (ARGS_LOG_INFO, BASE_DIR, DOWNLOAD_LOG_INFO,
-                           EXPECTED_STATUS, FINISH_LOG_INFO, MAIN_DOC_URL,
-                           PEP_URL, START_LOG_INFO)
+from constants import (ARGS_LOG_INFO, BASE_DIR, DOWNLOAD_LOG_INFO,
+                       EXPECTED_STATUS, FINISH_LOG_INFO, MAIN_DOC_URL,
+                       PEP_URL, START_LOG_INFO,)
 from utils import find_tag, get_response, get_soup
 
 
@@ -24,7 +24,7 @@ def whats_new(session):
     sections_by_python = div_with_ul.find_all(
         'li', attrs={'class': 'toctree-l1'}
     )
-
+    
     # Добавляем в пустой список заголовки таблицы.
     results = [('Ссылка на статью', 'Заголовок', 'Редактор, Автор')]
     for section in tqdm(sections_by_python):
@@ -43,7 +43,7 @@ def whats_new(session):
         results.append(
             (version_link, h1.text, dl_text)
         )
-
+    
     return results
 
 
@@ -60,7 +60,7 @@ def latest_versions(session):
             break
     else:
         raise Exception('Не найден список c версиями Python')
-
+    
     # Добавляем в пустой список заголовки таблицы.
     results = [('Ссылка на документацию', 'Версия', 'Статус')]
     # Шаблон для поиска версии и статуса:
@@ -97,7 +97,7 @@ def download(session):
     # Сохраняем в переменную содержимое атрибута href.
     pdf_a4_link = pdf_a4_tag['href']
     archive_url = urljoin(downloads_url, pdf_a4_link)
-
+    
     filename = archive_url.split('/')[-1]
     # Сформируйте путь до директории downloads.
     downloads_dir = BASE_DIR / 'downloads'
@@ -107,12 +107,12 @@ def download(session):
     archive_path = downloads_dir / filename
     # Загрузка архива по ссылке.
     response = session.get(archive_url)
-
+    
     # В бинарном режиме открывается файл на запись по указанному пути.
     with open(archive_path, 'wb') as file:
         # Полученный ответ записывается в файл.
         file.write(response.content)
-
+    
     logging.info(DOWNLOAD_LOG_INFO.format(archive_path=archive_path))
 
 
@@ -137,10 +137,6 @@ def pep(session):
                               attrs={'class': 'rfc2822 field-list simple'})
         status_pep_page = table_info.find(
             string='Status').parent.find_next_sibling('dd').string
-        # if status_pep_page in status_dict:
-        #     status_dict[status_pep_page] += 1
-        # if status_pep_page not in status_dict:
-        #     status_dict[status_pep_page] = 1
         status_dict[status_pep_page] = status_dict.get(status_pep_page, 0) + 1
         if status_pep_page not in EXPECTED_STATUS[preview_status]:
             error_message = ('Несовпадающие статусы:\n'
@@ -174,20 +170,20 @@ def main():
     args = arg_parser.parse_args()
     # Логируем переданные аргументы командной строки.
     logging.info(ARGS_LOG_INFO.format(args=args))
-
+    
     # Создание кеширующей сессии.
     session = requests_cache.CachedSession()
     # Если был передан ключ '--clear-cache', то args.clear_cache == True.
     if args.clear_cache:
         # Очистка кеша.
         session.cache.clear()
-
+    
     # Получение из аргументов командной строки нужного режима работы.
     parser_mode = args.mode
     # Поиск и вызов нужной функции по ключу словаря.
     # С вызовом функции передаётся и сессия.
     results = MODE_TO_FUNCTION[parser_mode](session)
-
+    
     # Если из функции вернулись какие-то результаты,
     if results is not None:
         # передаём их в функцию вывода вместе с аргументами командной строки.
