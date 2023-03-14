@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from requests import RequestException
 
 from exceptions import ParserFindTagException
-from src.constants import GET_RESPONSE_LOG_ERROR, TAG_NOT_FOUND_LOG_ERROR
+from constants import GET_RESPONSE_LOG_ERROR, TAG_NOT_FOUND_LOG_ERROR
 
 
 def get_response(session, url):
